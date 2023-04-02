@@ -6,21 +6,18 @@ public class PlayerController : MonoBehaviour
 {
 
     private  Rigidbody2D rb;
-    public int speed = 400;
+    public float speed;
     private bool facingRight = false;
     private float horizontalMove;
     public Animator animator;
 
     //Para los altos
-    public int jumpPower = 25;
+    public float jumpPower;
     private bool isGrounded;
     public Transform feetPos;
     public float checkRadius;
     public LayerMask whatIsGround;
-
-    private float jumpTimeCounter;
-    public float jumpTime;
-    private bool isJumping;
+    private bool Grounded;
 
     // Start is called before the first frame update
     void Start()
@@ -48,26 +45,8 @@ public class PlayerController : MonoBehaviour
             FlipPlayer();
         }
         //Salta cuando presiones Space
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded) {
+        if (Input.GetKeyDown(KeyCode.Space)) {
             Jump();
-        }
-
-        if (Input.GetKey(KeyCode.Space) && isJumping) 
-        {
-            if (jumpTimeCounter > 0) 
-            {
-                rb.velocity = Vector2.up * jumpPower;
-                jumpTimeCounter -= Time.deltaTime;
-            } 
-            else 
-            {
-                isJumping = true;
-
-            }
-        }
-        if (Input.GetKeyUp(KeyCode.Space)) 
-        {
-            isJumping = false;
         }
     }
 
@@ -82,7 +61,5 @@ public class PlayerController : MonoBehaviour
     void Jump () 
     {
         rb.velocity = Vector2.up * jumpPower;
-        isJumping = true;
-        jumpTimeCounter = jumpTime;
     }
 }
